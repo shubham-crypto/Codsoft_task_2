@@ -45,6 +45,7 @@ export const AuthProvider = ({ children }) => {
       await axios.post('http://localhost:5000/api/signup', { email, password, role });
       await signin(email, password);
     } catch (error) {
+      alert('Failed to sign up. Please check your details and try again.');
       console.error('Error signing up', error);
     }
   };
