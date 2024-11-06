@@ -27,9 +27,12 @@ const secret = process.env.JWT_SECRET;
 app.use('/api/me', authMiddleware);
 main().catch((err) => console.log(err));
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1/JobsDB");
-  console.log("Connected");
-
+  try {
+    await mongoose.connect(`mongodb+srv://mshubham0723:${process.env.MONG_PASSWORD}@cluster0.lhcr991.mongodb.net/jobsdb?retryWrites=true&w=majority&appName=Cluster0`)
+    console.log("Connected to the database");
+  } catch (error) {
+    console.error("Error connecting to the database:", error);
+  }
   const UserSchema = new mongoose.Schema({
       email: {
           type: String,

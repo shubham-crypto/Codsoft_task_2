@@ -14,7 +14,7 @@ export const Signup = () => {
         e.preventDefault();
         try {
           await signup(email, password, role);
-          navigate('/login'); // Navigate to home page or another page after successful signup
+          navigate('/'); // Navigate to home page or another page after successful signup
         } catch (error) {
           console.error('Error signing up', error);
         }
