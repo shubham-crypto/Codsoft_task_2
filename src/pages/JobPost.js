@@ -12,12 +12,13 @@ export const JobPost = () => {
     const [industry, setIndustry] = useState('');
     const [experienceLevel, setExperienceLevel] = useState('');
     const [skillsRequired, setSkillsRequired] = useState('');
+    const apiUrl = process.env.REACT_APP_API_URL;
     const {user}=useContext(AuthContext)
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
         const { userId } = user;
-        await axios.post('http://localhost:5000/api/employer/post-job', {
+        await axios.post(`${apiUrl}/api/employer/post-job`, {
             title,
             description,
             location,

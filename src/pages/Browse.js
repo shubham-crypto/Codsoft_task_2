@@ -8,10 +8,11 @@ export const Browse = () => {
   const [experienceLevelFilter, setExperienceLevelFilter] = useState('');
   const [jobs, setJobs] = useState([]);
   const navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const fetchJobs = async (query, jobType, experienceLevel) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/browse`, {
+      const response = await axios.get(`${apiUrl}/api/browse`, {
         params: { query, jobType, experienceLevel },
       });
       setJobs(response.data);

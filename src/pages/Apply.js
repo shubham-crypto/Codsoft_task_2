@@ -16,6 +16,7 @@ export const Apply = () => {
   const {user , setUser}=useContext(AuthContext)
   const [applicants, setApplicants] = useState([]);
   const { jobId } = useParams();
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,7 +50,7 @@ export const Apply = () => {
     try {
         // Send the form data to your backend endpoint
         const sendData=Object.fromEntries(data.entries());
-        await axios.post('http://localhost:5000/api/employee/apply-job', sendData,{
+        await axios.post(`${apiUrl}/api/employee/apply-job`, sendData,{
             headers: {
                 'Content-Type': 'multipart/form-data', // Important for file uploads
                 

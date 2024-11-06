@@ -6,11 +6,12 @@ export const Contact = () => {
   const { user } = useContext(AuthContext); // Assuming AuthContext provides user info
   const [feedback, setFeedback] = useState('');
   const [name, setName] = useState('');
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/send-email', {
+      await axios.post(`${apiUrl}/api/send-email`, {
         from: user.email, // User's email from AuthContext
         name:name,
         feedback,

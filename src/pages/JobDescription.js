@@ -3,10 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../AuthContext';
 import clsx from 'clsx';
-
+const apiUrl = process.env.REACT_APP_API_URL;
 const handleDownload = async (resumeFileName) => {
   try {
-    const response = await axios.get(`http://localhost:5000/api/getResumePath/${resumeFileName}`, {
+    const response = await axios.get(`${apiUrl}/api/getResumePath/${resumeFileName}`, {
       responseType: 'blob' // Important
     });
     const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -84,7 +84,7 @@ export const JobDescription = () => {
 
   const handleConfirm = async (id) => {
   try {
-    const response = await axios.post(`http://localhost:5000/api/jobs/${job._id}/confirm`, { id ,  user});
+    const response = await axios.post(`${apiUrl}/api/jobs/${job._id}/confirm`, { id ,  user});
     if (response.status === 200) {
       console.log('Applicant confirmed');
       // Optionally, update the state or refetch the job details
@@ -103,7 +103,7 @@ export const JobDescription = () => {
 
 const handleReject = async (id) => {
   try {
-    const response = await axios.post(`http://localhost:5000/api/jobs/${job._id}/reject`, { id , user});
+    const response = await axios.post(`${apiUrl}/api/jobs/${job._id}/reject`, { id , user});
     if (response.status === 200) {
       console.log('Applicant rejected');
       // Optionally, update the state or refetch the job details
@@ -125,7 +125,7 @@ const handleReject = async (id) => {
 
   const handleStatusChange = async () => {
     try {
-      const response = await axios.patch(`http://localhost:5000/api/jobs/${job._id}`, { status: status === 'Open' ? 'Closed' : 'Open' });
+      const response = await axios.patch(`${apiUrl}/api/jobs/${job._id}`, { status: status === 'Open' ? 'Closed' : 'Open' });
       setStatus(response.data.status);
     } catch (error) {
       console.error('Error changing job status:', error);

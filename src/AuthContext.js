@@ -10,12 +10,13 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // New state for isLoggedIn
 
   const navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      axios.get('http://localhost:5000/api/me')
+      axios.get(`${apiUrl}/api/me`)
         .then(response => {
           setUser(response.data);
           setIsLoggedIn(true); // Set isLoggedIn to true when user is loaded
@@ -29,7 +30,7 @@ export const AuthProvider = ({ children }) => {
 
   const signin = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/signin', { email, password });
+      const response = await axios.post(`${apiUrl}/api/signin`, { email, password });
       const { token, role , userId } = response.data;
       localStorage.setItem('token', token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -42,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (email, password, role) => {
     try {
-      await axios.post('http://localhost:5000/api/signup', { email, password, role });
+      await axios.post(`${apiUrl}/api/signup`, { email, password, role });
       await signin(email, password);
     } catch (error) {
       alert('Failed to sign up. Please check your details and try again.');

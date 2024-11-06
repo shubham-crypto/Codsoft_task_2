@@ -15,6 +15,7 @@ export const Employer = () => {
     position: '',
     experience: '',
   });
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     fetchJobs(); // Fetch jobs when the component mounts
@@ -23,7 +24,7 @@ export const Employer = () => {
 
   const fetchJobs = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/employer/jobs'); // Endpoint to fetch jobs by employer
+      const response = await axios.get(`${apiUrl}/api/employer/jobs`); // Endpoint to fetch jobs by employer
       setJobs(response.data);
     } catch (error) {
       console.error('Error fetching jobs:', error);
@@ -32,7 +33,7 @@ export const Employer = () => {
 
   const fetchProfile = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/profile'); // Endpoint to fetch profile info
+      const response = await axios.get(`${apiUrl}/api/profile`); // Endpoint to fetch profile info
       setProfile(response.data);
     } catch (error) {
       console.error('Error fetching profile:', error);
@@ -43,7 +44,7 @@ export const Employer = () => {
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/profile', profile); // Endpoint to update profile info
+      await axios.post(`${apiUrl}/api/profile`, profile); // Endpoint to update profile info
       alert('Profile updated successfully');
     } catch (error) {
       console.error('Error updating profile:', error);
